@@ -1,0 +1,13 @@
+[{:repository/name "com-etzhayyim-hydrogen-electrolysis"
+  :repository/category :actor
+  :repository/source-format :edn
+  :repository/authoritative true
+  :repository/west-path "orgs/etzhayyim/com-etzhayyim-hydrogen-electrolysis"
+  :repository/legacy-path "20-actors/hydrogen_electrolysis"
+  :repository/runtime :babashka
+  :repository/test-command "bb test"
+  :repository/external-dependencies
+  [{:repository/name "kami-engine"
+    :repository/revision "c4502cc69c5cb756e96f6bc6c865c7ec57bc3961"
+    :repository/west-path "orgs/kotoba-lang/kami-engine"
+    :dependency/status :live-simulator-interface-reserved}] }]

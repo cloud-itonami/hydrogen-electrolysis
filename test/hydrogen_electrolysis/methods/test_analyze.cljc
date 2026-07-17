@@ -5,6 +5,7 @@
   tests drive the pure stub."
   (:require [clojure.test :refer [deftest is testing]]
             [clojure.string :as str]
+            [clojure.edn :as edn]
             #?(:clj [clojure.java.io :as io])
             [hydrogen-electrolysis.methods.analyze :as a]
             [hydrogen-electrolysis.methods.electrolysis :as e]))
@@ -55,15 +56,13 @@
          (is (= 3 (count (:files result))))
          (doseq [f-path (:files result)]
            (is (.exists (io/file f-path)) (str "missing: " f-path)))
-         ;; comparison.json must be valid JSON with actor key
-         (let [json-txt (slurp (io/file tmp-dir "comparison.json"))]
-           (is (str/includes? json-txt "hydrogen_electrolysis")))
-         ;; comparison.md must be a markdown report
-         (let [md-txt (slurp (io/file tmp-dir "comparison.md"))]
+         (let [comparison-data (edn/read-string (slurp (io/file tmp-dir "comparison.edn")))]
+           (is (= "hydrogen_electrolysis" (get comparison-data "actor"))))
+         ;; Markdown is a derived report, not the canonical data source.
+         (let [md-txt (slurp (io/file tmp-dir "comparison-report.md"))]
            (is (str/includes? md-txt "efficiency comparison")))
-         ;; kotoba-datoms.json must contain datom data
-         (let [datom-txt (slurp (io/file tmp-dir "kotoba-datoms.json"))]
-           (is (str/includes? datom-txt "hydrogen.electrolysis")))
+         (let [datoms (edn/read-string (slurp (io/file tmp-dir "kotoba-datoms.edn")))]
+           (is (= 3 (count datoms))))
          (finally
            (doseq [f (.listFiles tmp-dir)] (.delete f))
            (.delete tmp-dir))))))

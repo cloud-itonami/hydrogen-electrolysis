@@ -3,8 +3,7 @@
   Covers: claim helper, entities shape for both Case and Recommendation rows.
   IO legs (HTTP, subprocess) are omitted in the cljc port and not tested here."
   (:require [clojure.test :refer [deftest is testing]]
-            [clojure.string :as str]
-            #?(:clj [cheshire.core :as json])
+            [clojure.edn :as edn]
             [hydrogen-electrolysis.kotoba.ingest-efficiency :as ie]
             [hydrogen-electrolysis.methods.electrolysis :as e]))
 
@@ -116,60 +115,6 @@
     (is (= 1 (count entities)))
     (is (= "hydrogen-electrolysis/real" (get (first entities) "id")))))
 
-;; ---------------------------------------------------------------------------
-;; Parity smoke: Python vs cljc (graceful skip if Python deps unavailable)
-;; ---------------------------------------------------------------------------
-
-#?(:clj
-   (deftest test-parity-smoke-py-vs-clj
-     ;; Runs the Python _entities() and compares entity-id set with the cljc output.
-     ;; Skipped gracefully if Python deps are unavailable.
-     (let [py-result
-           (try
-             (let [proc (-> (ProcessBuilder.
-                             ["python3" "-c"
-                              (str "import sys, json;"
-                                   "sys.path.insert(0,'20-actors/hydrogen_electrolysis/methods');"
-                                   "sys.path.insert(0,'20-actors/hydrogen_electrolysis/kotoba');"
-                                   "from ingest_efficiency import _entities;"
-                                   "from electrolysis import kotoba_datoms, run_comparison;"
-                                   "print(json.dumps(_entities(kotoba_datoms(run_comparison()))));")])
-                            (.start))
-                   stdout (slurp (.getInputStream proc))
-                   exit   (.waitFor proc)]
-               (if (zero? exit)
-                 {:ok true :data (json/parse-string stdout)}
-                 {:ok false :reason (str "python3 exit " exit)}))
-             (catch Exception ex
-               {:ok false :reason (str "python3 unavailable: " (.getMessage ex))}))
-           datoms   (e/kotoba-datoms
-                     {"actor"                "hydrogen_electrolysis"
-                      "engine"               "kami-hydrogen-electrolysis-sim"
-                      "active_area_cm2"      10000.0
-                      "best_low_temperature" {"name" "cfe-zero-gap-aem-high-pressure"}
-                      "best_electrical"      {"name" "soec-high-temperature"}
-                      "results"
-                      [{"name"                          "cfe-zero-gap-aem-high-pressure"
-                        "cell_voltage_v"                1.742
-                        "electrical_kwh_per_kg"         46.318
-                        "total_with_heat_kwh_per_kg"    48.901
-                        "hhv_electrical_efficiency_pct" 85.12
-                        "hhv_total_efficiency_pct"      80.63
-                        "h2_kg_per_hour"                0.421337
-                        "output_pressure_bar"           30.0}
-                       {"name"                          "soec-high-temperature"
-                        "cell_voltage_v"                1.293
-                        "electrical_kwh_per_kg"         37.004
-                        "total_with_heat_kwh_per_kg"    52.118
-                        "hhv_electrical_efficiency_pct" 106.55
-                        "hhv_total_efficiency_pct"      75.66
-                        "h2_kg_per_hour"                0.298122
-                        "output_pressure_bar"           1.0}]})
-           clj-entities (ie/entities datoms)
-           clj-id-set   (set (map #(get % "id") clj-entities))]
-       (if (:ok py-result)
-         (let [py-entities (:data py-result)
-               py-id-set   (set (map #(get % "id") py-entities))]
-           (println "PARITY check: py-ids=" py-id-set " clj-ids=" clj-id-set)
-           (is (= py-id-set clj-id-set) "Python and cljc entity id sets must match"))
-         (println "PARITY SKIP:" (:reason py-result))))))
+(deftest test-entities-edn-roundtrip
+  (let [entities (ie/entities (e/kotoba-datoms comparison))]
+    (is (= entities (edn/read-string (pr-str entities))))))

@@ -1,17 +1,11 @@
 (ns hydrogen-electrolysis.methods.analyze
   "hydrogen_electrolysis — analysis entry-point. 1:1 port of methods/analyze.py.
 
-  The Python main() calls run_comparison() (kami-sim engine — omitted, same pattern as
-  electrolysis.cljc), then writes three output files under methods/out/:
-    - comparison.json       (the full comparison map)
-    - comparison.md         (the rendered markdown report)
-    - kotoba-datoms.json    (the EAVT datom rows)
-
-  write-outputs! receives the already-computed comparison map and writes those files,
-  mirroring the Python main() body exactly. run-comparison-stub replaces the omitted
-  kami-sim engine call for testing."
+  The live kami-sim engine leg is omitted. The standalone actor writes canonical
+  EDN comparison data and EAVT datoms plus a derived Markdown report.
+  run-comparison-stub supplies the deterministic offline fixture."
   #?(:clj  (:require [clojure.java.io :as io]
-                     [cheshire.core :as json]
+                     [clojure.pprint :as pprint]
                      [hydrogen-electrolysis.methods.electrolysis :as e])
      :cljs (:require [hydrogen-electrolysis.methods.electrolysis :as e])))
 
@@ -21,7 +15,7 @@
 
 (defn run-comparison-stub
   "STUB: in Python this calls kami_hydrogen_electrolysis_sim.simulate_default_cases /
-  rank_by_electrical_energy / scene_spec from the 40-engine/kami-engine submodule.
+  rank_by_electrical_energy / scene_spec from the pinned Kami Engine checkout.
   Returns a representative fixture for testing. The live leg is omitted."
   ([] (run-comparison-stub 10000.0))
   ([active-area-cm2]
@@ -54,21 +48,21 @@
 
 #?(:clj
    (defn write-outputs!
-     "Given a `comparison` map writes three output files under `out-dir`:
-       comparison.json    – full comparison map as pretty-printed JSON
-       comparison.md      – rendered markdown report
-       kotoba-datoms.json – EAVT datom rows as pretty-printed JSON
+     "Given a `comparison` map writes canonical comparison.edn and
+     kotoba-datoms.edn plus the derived comparison-report.md.
      Returns {:files [...paths...]}."
      [comparison out-dir]
      (let [out (io/file out-dir)]
        (.mkdirs out)
-       (let [f-json  (io/file out "comparison.json")
-             f-md    (io/file out "comparison.md")
-             f-datom (io/file out "kotoba-datoms.json")]
-         (spit f-json  (str (json/generate-string comparison {:pretty true}) "\n"))
-         (spit f-md    (e/render-report comparison))
-         (spit f-datom (str (json/generate-string (e/kotoba-datoms comparison) {:pretty true}) "\n"))
-         {:files [(str f-json) (str f-md) (str f-datom)]}))))
+       (let [f-edn   (io/file out "comparison.edn")
+             f-md    (io/file out "comparison-report.md")
+             f-datom (io/file out "kotoba-datoms.edn")]
+         (with-open [writer (io/writer f-edn)]
+           (binding [*out* writer] (pprint/pprint comparison)))
+         (spit f-md (e/render-report comparison))
+         (with-open [writer (io/writer f-datom)]
+           (binding [*out* writer] (pprint/pprint (e/kotoba-datoms comparison))))
+         {:files [(str f-edn) (str f-md) (str f-datom)]}))))
 
 ;; ---------------------------------------------------------------------------
 ;; Main (mirrors Python if __name__ == "__main__")
