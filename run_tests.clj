@@ -6,6 +6,7 @@
     hydrogen-electrolysis.methods.test-analyze
     hydrogen-electrolysis.methods.test-reactor-fab
     hydrogen-electrolysis.methods.test-reactor-closure
+    hydrogen-electrolysis.methods.test-reactor-weld
     hydrogen-electrolysis.kotoba.test-ingest-efficiency
     hydrogen-electrolysis.kotoba.deploy-test])
 
