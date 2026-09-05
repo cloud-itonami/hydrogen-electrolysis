@@ -15,3 +15,4 @@
   (System/exit (if (zero? (+ fail error)) 0 1)))
     hydrogen-electrolysis.methods.test-reactor-servicing
     hydrogen-electrolysis.methods.test-cartridge-fill
+    hydrogen-electrolysis.methods.test-reactor-control
