@@ -13,3 +13,4 @@
 (apply require suites)
 (let [{:keys [fail error]} (apply test/run-tests suites)]
   (System/exit (if (zero? (+ fail error)) 0 1)))
+    hydrogen-electrolysis.methods.test-reactor-servicing
