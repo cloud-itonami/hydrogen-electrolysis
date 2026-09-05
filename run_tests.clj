@@ -16,3 +16,4 @@
     hydrogen-electrolysis.methods.test-reactor-servicing
     hydrogen-electrolysis.methods.test-cartridge-fill
     hydrogen-electrolysis.methods.test-reactor-control
+    hydrogen-electrolysis.methods.test-pem-stack
