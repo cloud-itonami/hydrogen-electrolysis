@@ -4,7 +4,7 @@
   these via run_comparison() (the omitted kami-sim engine leg); here a fixture `comparison` map of
   the same shape (the engine's documented output) feeds the pure functions directly."
   (:require [clojure.test :refer [deftest is]]
-            [clojure.string :as str]
+            [kotoba.lang.text :as str]
             [hydrogen-electrolysis.methods.electrolysis :as e]))
 
 (def comparison

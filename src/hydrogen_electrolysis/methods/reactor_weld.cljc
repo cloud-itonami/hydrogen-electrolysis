@@ -30,7 +30,7 @@
     serial (refused) — not an error to fill in.
   - A hydrogen-service joint without a specified inspection set is blocked,
     not waved through."
-  (:require [clojure.string :as str]))
+  (:require [kotoba.lang.text :as str]))
 
 ;; ---------------------------------------------------------------------------
 ;; Refusal / approval helpers (mirror sibling contracts)

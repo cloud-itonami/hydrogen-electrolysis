@@ -4,7 +4,7 @@
   The kami-sim engine leg (run_comparison) is omitted in both Python and cljc;
   tests drive the pure stub."
   (:require [clojure.test :refer [deftest is testing]]
-            [clojure.string :as str]
+            [kotoba.lang.text :as str]
             [clojure.edn :as edn]
             #?(:clj [clojure.java.io :as io])
             [hydrogen-electrolysis.methods.analyze :as a]

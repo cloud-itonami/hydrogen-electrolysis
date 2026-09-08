@@ -18,7 +18,7 @@
   The pure-logic `entities` function is the only computable part testable without the live
   kotoba engine. The omitted legs are network/subprocess IO and are correctly left in Python
   as the operator tooling layer (no-server-key invariant: the operator drives submission)."
-  (:require [clojure.string :as str]))
+  (:require [kotoba.lang.text :as str]))
 
 (defn claim
   "Helper: (pred value) → {:pred pred :value (str value)}.

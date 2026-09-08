@@ -8,7 +8,7 @@
   engine from the flat `orgs/kotoba-lang/kami-engine` checkout (simulate_default_cases / rank_by_electrical_energy
   / scene_spec) — a cross-engine kami-sim closure, the analog of an omitted network/live leg. The
   comparison map it returns is supplied here as test fixtures."
-  (:require [clojure.string :as str]))
+  (:require [kotoba.lang.text :as str]))
 
 (defn- roundn [x n]
   (let [f (Math/pow 10.0 n)]
