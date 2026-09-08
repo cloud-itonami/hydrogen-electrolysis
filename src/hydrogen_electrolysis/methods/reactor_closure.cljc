@@ -41,7 +41,7 @@
   - This contract never issues a leak verdict: post-closure leak
     verification is explicitly deferred to the reactor-fab leak gate."
   (:require [clojure.set :as set]
-            [clojure.string :as str]))
+            [kotoba.lang.text :as str]))
 
 ;; ---------------------------------------------------------------------------
 ;; Shared refusal / approval helpers

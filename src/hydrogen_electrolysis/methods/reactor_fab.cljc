@@ -18,7 +18,7 @@
   - Procurement defers to a human; condition is recorded as one of
     #{:new :used :refurbished :unknown}; missing commercial values are
     recorded as :unmeasured, never estimated."
-  (:require [clojure.string :as str]))
+  (:require [kotoba.lang.text :as str]))
 
 ;; ---------------------------------------------------------------------------
 ;; Shared refusal / approval helpers
