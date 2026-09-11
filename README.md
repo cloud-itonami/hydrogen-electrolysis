@@ -12,12 +12,12 @@ The actor does not control a physical electrolyzer. It is a deterministic design
 
 ```bash
 # cljc-native (ADR-2606261200); run from the repository root:
-bb test       # standalone test suite
-bb analyze    # canonical out/comparison.edn + out/kotoba-datoms.edn
+kbb -M:test       # standalone test suite
+kbb -M:analyze    # canonical out/comparison.edn + out/kotoba-datoms.edn
 ```
 
 Kotoba deploy dry-run:
 
 ```bash
-bb deploy-plan
+kbb -M:deploy-plan
 ```

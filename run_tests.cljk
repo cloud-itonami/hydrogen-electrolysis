@@ -1,4 +1,4 @@
-#!/usr/bin/env bb
+#!/usr/bin/env kbb
 (require '[clojure.test :as test])
 
 (def suites

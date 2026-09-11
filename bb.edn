@@ -1,8 +1,8 @@
 {:paths ["src" "test"]
  :tasks
  {test {:doc "Run the standalone actor test suite"
-        :task (shell "bb run_tests.cljk")}
+        :task (shell "kbb run_tests.cljk")}
   analyze {:doc "Generate canonical EDN comparison artifacts"
-           :task (shell "bb -m hydrogen-electrolysis.methods.analyze")}
+           :task (shell "kbb -m hydrogen-electrolysis.methods.analyze")}
   deploy-plan {:doc "Render the operator-gated ingest plan without network writes"
-               :task (shell "bb -m hydrogen-electrolysis.kotoba.deploy")}}}
+               :task (shell "kbb -m hydrogen-electrolysis.kotoba.deploy")}}}
