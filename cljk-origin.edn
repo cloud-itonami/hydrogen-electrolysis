@@ -1,0 +1,22 @@
+{:format :kotoba.cljk-origin/v1
+ :renamed-on "2026-09-11"
+ :decision "adr-2609111500-cljk-rename-all-clojure-source (com-junkawasaki/root 90-docs/adr; owner instruction 2026-09-11)"
+ :rule "value = the extension the file had before the rename. A path ending in .clj.cljk or .cljs.cljk kept it in the name because both platform files existed (or the plain target was taken)."
+ :origins
+ {"run_tests.cljk" ".clj"
+  "src/hydrogen_electrolysis/kotoba/deploy.cljk" ".clj"
+  "src/hydrogen_electrolysis/kotoba/ingest_efficiency.cljk" ".cljc"
+  "src/hydrogen_electrolysis/methods/analyze.cljk" ".cljc"
+  "src/hydrogen_electrolysis/methods/electrolysis.cljk" ".cljc"
+  "src/hydrogen_electrolysis/methods/reactor_closure.cljk" ".cljc"
+  "src/hydrogen_electrolysis/methods/reactor_control.cljk" ".cljc"
+  "src/hydrogen_electrolysis/methods/reactor_fab.cljk" ".cljc"
+  "src/hydrogen_electrolysis/methods/reactor_weld.cljk" ".cljc"
+  "test/hydrogen_electrolysis/kotoba/deploy_test.cljk" ".clj"
+  "test/hydrogen_electrolysis/kotoba/test_ingest_efficiency.cljk" ".cljc"
+  "test/hydrogen_electrolysis/methods/test_analyze.cljk" ".cljc"
+  "test/hydrogen_electrolysis/methods/test_electrolysis.cljk" ".cljc"
+  "test/hydrogen_electrolysis/methods/test_reactor_closure.cljk" ".cljc"
+  "test/hydrogen_electrolysis/methods/test_reactor_control.cljk" ".cljc"
+  "test/hydrogen_electrolysis/methods/test_reactor_fab.cljk" ".cljc"
+  "test/hydrogen_electrolysis/methods/test_reactor_weld.cljk" ".cljc"}}
