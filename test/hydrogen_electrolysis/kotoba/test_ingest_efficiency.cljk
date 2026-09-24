@@ -3,7 +3,7 @@
   Covers: claim helper, entities shape for both Case and Recommendation rows.
   IO legs (HTTP, subprocess) are omitted in the cljc port and not tested here."
   (:require [kotoba.test :refer [deftest is testing]]
-            [clojure.edn :as edn]
+            [kotoba.lang.edn :as edn]
             [hydrogen-electrolysis.kotoba.ingest-efficiency :as ie]
             [hydrogen-electrolysis.methods.electrolysis :as e]))
 
