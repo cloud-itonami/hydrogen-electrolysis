@@ -5,7 +5,7 @@
   tests drive the pure stub."
   (:require [kotoba.test :refer [deftest is testing]]
             [kotoba.lang.text :as str]
-            [clojure.edn :as edn]
+            [kotoba.lang.edn :as edn]
             #?(:clj [clojure.java.io :as io])
             [hydrogen-electrolysis.methods.analyze :as a]
             [hydrogen-electrolysis.methods.electrolysis :as e]))
