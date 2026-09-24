@@ -3,7 +3,7 @@
   Covers: run-comparison-stub shape + write-outputs! file emission.
   The kami-sim engine leg (run_comparison) is omitted in both Python and cljc;
   tests drive the pure stub."
-  (:require [clojure.test :refer [deftest is testing]]
+  (:require [kotoba.test :refer [deftest is testing]]
             [kotoba.lang.text :as str]
             [clojure.edn :as edn]
             #?(:clj [clojure.java.io :as io])

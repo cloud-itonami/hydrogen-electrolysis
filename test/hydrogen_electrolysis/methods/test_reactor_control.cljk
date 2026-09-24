@@ -1,7 +1,7 @@
 (ns hydrogen-electrolysis.methods.test-reactor-control
   "Tests for the hydrogen reactor operational-control cell decision contract
   (activity → decision → effect → audit). Pure; deterministic; stdlib only."
-  (:require [clojure.test :refer [deftest is]]
+  (:require [kotoba.test :refer [deftest is]]
             [hydrogen-electrolysis.methods.reactor-control :as rc]))
 
 (def good-operation

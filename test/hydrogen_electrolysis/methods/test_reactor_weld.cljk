@@ -1,6 +1,6 @@
 (ns hydrogen-electrolysis.methods.test-reactor-weld
   "Tests for the reactor joint-fabrication decision contract."
-  (:require [clojure.test :refer [deftest is]]
+  (:require [kotoba.test :refer [deftest is]]
             [hydrogen-electrolysis.methods.reactor-weld :as rw]))
 
 (def good-request

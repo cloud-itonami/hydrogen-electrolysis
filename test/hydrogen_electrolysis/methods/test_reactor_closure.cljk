@@ -1,7 +1,7 @@
 (ns hydrogen-electrolysis.methods.test-reactor-closure
   "Tests for the getter-loading + hermetic-closure decision contract
   (hydrogen reactor fabrication cell, activities preceding the leak gate)."
-  (:require [clojure.test :refer [deftest is]]
+  (:require [kotoba.test :refer [deftest is]]
             [hydrogen-electrolysis.methods.reactor-closure :as rc]))
 
 ;; ---------------------------------------------------------------------------

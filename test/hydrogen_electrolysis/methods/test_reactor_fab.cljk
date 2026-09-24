@@ -1,6 +1,6 @@
 (ns hydrogen-electrolysis.methods.test-reactor-fab
   "Tests for the hydrogen reactor fabrication cell decision contract."
-  (:require [clojure.test :refer [deftest is]]
+  (:require [kotoba.test :refer [deftest is]]
             [hydrogen-electrolysis.methods.reactor-fab :as rf]))
 
 (def good-request
