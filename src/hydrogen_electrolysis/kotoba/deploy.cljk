@@ -2,7 +2,7 @@
   "Operator boundary for the electrolysis ingest. This repository can build a
   deterministic plan offline; live submission remains deliberately unavailable
   until an operator-authenticated Kotoba adapter is supplied."
-  (:require [clojure.pprint :as pprint]
+  (:require [kotoba.pprint :as pprint]
             [hydrogen-electrolysis.kotoba.ingest-efficiency :as ingest]
             [hydrogen-electrolysis.methods.analyze :as analyze]
             [hydrogen-electrolysis.methods.electrolysis :as electrolysis]))
