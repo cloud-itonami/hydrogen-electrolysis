@@ -1,5 +1,5 @@
 #!/usr/bin/env kbb
-(require '[clojure.test :as test])
+(require '[kotoba.test :as test])
 
 (def suites
   '[hydrogen-electrolysis.methods.test-electrolysis

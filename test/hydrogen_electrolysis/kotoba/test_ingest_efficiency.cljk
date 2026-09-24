@@ -2,7 +2,7 @@
   "Tests for ingest_efficiency.cljc — the pure-logic port of kotoba/ingest_efficiency.py.
   Covers: claim helper, entities shape for both Case and Recommendation rows.
   IO legs (HTTP, subprocess) are omitted in the cljc port and not tested here."
-  (:require [clojure.test :refer [deftest is testing]]
+  (:require [kotoba.test :refer [deftest is testing]]
             [clojure.edn :as edn]
             [hydrogen-electrolysis.kotoba.ingest-efficiency :as ie]
             [hydrogen-electrolysis.methods.electrolysis :as e]))
