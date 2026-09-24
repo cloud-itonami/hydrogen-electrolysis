@@ -40,7 +40,7 @@
     recorded as :unmeasured, never estimated.
   - This contract never issues a leak verdict: post-closure leak
     verification is explicitly deferred to the reactor-fab leak gate."
-  (:require [clojure.set :as set]
+  (:require [kotoba.lang.coll :as set]
             [kotoba.lang.text :as str]))
 
 ;; ---------------------------------------------------------------------------
