@@ -6,7 +6,7 @@
   (:require [kotoba.test :refer [deftest is testing]]
             [kotoba.lang.text :as str]
             [kotoba.lang.edn :as edn]
-            #?(:clj [clojure.java.io :as io])
+            #?(:clj [kotoba.io :as io])
             [hydrogen-electrolysis.methods.analyze :as a]
             [hydrogen-electrolysis.methods.electrolysis :as e]))
 
@@ -49,13 +49,13 @@
    (deftest test-write-outputs-creates-files
      (let [tmp-dir (doto (io/file (System/getProperty "java.io.tmpdir")
                                   (str "test-analyze-" (System/currentTimeMillis)))
-                     .mkdirs)
+                     io/mkdirs)
            c       (a/run-comparison-stub)
            result  (a/write-outputs! c (str tmp-dir))]
        (try
          (is (= 3 (count (:files result))))
          (doseq [f-path (:files result)]
-           (is (.exists (io/file f-path)) (str "missing: " f-path)))
+           (is (io/exists? (io/file f-path)) (str "missing: " f-path)))
          (let [comparison-data (edn/read-string (slurp (io/file tmp-dir "comparison.edn")))]
            (is (= "hydrogen_electrolysis" (get comparison-data "actor"))))
          ;; Markdown is a derived report, not the canonical data source.
@@ -64,5 +64,5 @@
          (let [datoms (edn/read-string (slurp (io/file tmp-dir "kotoba-datoms.edn")))]
            (is (= 3 (count datoms))))
          (finally
-           (doseq [f (.listFiles tmp-dir)] (.delete f))
-           (.delete tmp-dir))))))
+           (doseq [f (io/list-files tmp-dir)] (io/delete f))
+           (io/delete tmp-dir))))))
