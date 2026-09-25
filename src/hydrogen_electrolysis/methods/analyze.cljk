@@ -4,7 +4,7 @@
   The live kami-sim engine leg is omitted. The standalone actor writes canonical
   EDN comparison data and EAVT datoms plus a derived Markdown report.
   run-comparison-stub supplies the deterministic offline fixture."
-  #?(:clj  (:require [clojure.java.io :as io]
+  #?(:clj  (:require [kotoba.io :as io]
                      [clojure.pprint :as pprint]
                      [hydrogen-electrolysis.methods.electrolysis :as e])
      :cljs (:require [hydrogen-electrolysis.methods.electrolysis :as e])))
@@ -53,7 +53,7 @@
      Returns {:files [...paths...]}."
      [comparison out-dir]
      (let [out (io/file out-dir)]
-       (.mkdirs out)
+       (io/mkdirs out)
        (let [f-edn   (io/file out "comparison.edn")
              f-md    (io/file out "comparison-report.md")
              f-datom (io/file out "kotoba-datoms.edn")]
